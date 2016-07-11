@@ -38,5 +38,10 @@
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Access to your location is required to determine the nearest cities for which weather is available.</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
 </dict>
 </plist>

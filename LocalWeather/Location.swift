@@ -28,5 +28,11 @@ class Location {
         _long = longitude
     }
     
-
+    func setLat(lat: Double) {
+        _lat = lat
+    }
+    
+    func setLong(long: Double) {
+        _long = long
+    }
 }

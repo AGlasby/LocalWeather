@@ -39,6 +39,16 @@
                                     <constraint firstItem="hjd-OJ-cpF" firstAttribute="centerY" secondItem="2hR-2q-OCD" secondAttribute="centerY" id="zhZ-c6-6B6"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qrg-D0-PTZ">
+                                <rect key="frame" x="240" y="285" width="121" height="30"/>
+                                <color key="backgroundColor" red="0.076828369010965014" green="1" blue="0.97234814580783058" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Locate">
+                                    <color key="titleColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="getLocation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1EQ-2e-tTk"/>
+                                </connections>
+                            </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="i5O-VG-Jth">
                                 <rect key="frame" x="20" y="53" width="341" height="29"/>
                                 <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -58,10 +68,12 @@
                             <constraint firstItem="i5O-VG-Jth" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="4Yw-47-fts"/>
                             <constraint firstItem="i5O-VG-Jth" firstAttribute="top" secondItem="2hR-2q-OCD" secondAttribute="bottom" constant="8" id="RIu-rd-ERH"/>
                             <constraint firstAttribute="trailing" secondItem="2hR-2q-OCD" secondAttribute="trailing" id="b9c-yW-Oql"/>
+                            <constraint firstItem="Qrg-D0-PTZ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="dVx-f3-TS5"/>
                             <constraint firstAttribute="trailingMargin" secondItem="i5O-VG-Jth" secondAttribute="trailing" constant="219" id="eyF-Wm-z7v"/>
                             <constraint firstItem="i5O-VG-Jth" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="jZb-7g-Nig"/>
                             <constraint firstItem="2hR-2q-OCD" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="mFe-hc-4EF"/>
                             <constraint firstItem="2hR-2q-OCD" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="wQA-Vg-ufC"/>
+                            <constraint firstItem="Qrg-D0-PTZ" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="zw9-03-EcR"/>
                         </constraints>
                     </view>
                 </viewController>

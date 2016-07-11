@@ -30,13 +30,13 @@ class CityWeather {
     }
   
     
-    init(name: String, state: String, country: String, id: Int, location: Location) {
+    init(name: String) {
         _cityName = name
-        _cityState = state
-        _cityCountry = country
-        _cityId = id
-        _cityLat = location.lat
-        _cityLong = location.long
+        _cityState = ""
+        _cityCountry = ""
+        _cityId = 0
+        _cityLat = 0.00
+        _cityLong = 0.00
         
     }
     
@@ -45,7 +45,26 @@ class CityWeather {
         
     }
     
-    func getNearestCities() {
+    
+    func getNearestCities(currentLocation: Location) -> [[String:AnyObject]] {
+        var nearbyCities = [[String:AnyObject]]()
+        
+        let findCityUrl = "\(URL_BASE)\(API_VERSION)\(FIND_CITY)"
+        let loc = "lat=\(currentLocation.lat)&lon\(currentLocation.long)&cnt=\(CITY_COUNT)"
+        let apiCall = "\(findCityUrl)\(loc)\(API_KEY)"
+        let url = NSURL(string: apiCall)!
+        
+        Alamofire.request(.GET, url).responseJSON { response in
+            let result = response.result
+            if let dict = result.value as? Dictionary<String, AnyObject> {
+                
+            }
+        }
+        
+        nearbyCities.append(["a":Int(12345)])
+        nearbyCities.append(["b":Int(45345)])
+        
+        return nearbyCities
         
     }
     

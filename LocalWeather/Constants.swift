@@ -17,5 +17,7 @@ let BY_CITY = "q="
 let BY_ID = "id="
 let BY_ZIP = "zip="
 
+let RADIUS = 10000.00
+
 typealias DownloadComplete = () -> ()
 

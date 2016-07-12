@@ -19,10 +19,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     var lat: Double!
     var long: Double!
     var currentLocation = Location(latitude: 0.00,longitude: 0.00)
-    var cities: [Dictionary<String, AnyObject>] = []
-    
-    
-    var weather = CityWeather(name: "")
+    var cities: [City] = []
+    var weather: CityWeather!
     
 
     override func viewDidLoad() {
@@ -33,21 +31,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.startUpdatingLocation()
         
         weather = CityWeather(name: "")
-
-        
     }
 
+    
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let newLocation: CLLocation=locations[0]
-        
-        var coordinateDesc: String = "Not Available"
-
-        
-        if newLocation.horizontalAccuracy >= 0 {
-            coordinateDesc = "\(newLocation.coordinate.latitude), \(newLocation.coordinate.longitude)"
-            coordinateDesc = coordinateDesc + " +/- \(newLocation.horizontalAccuracy) meters"
-        }
         
         lat = newLocation.coordinate.latitude
         long = newLocation.coordinate.longitude
@@ -68,17 +57,21 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             locationManager.requestWhenInUseAuthorization()
         }
     }
+ 
     
     @IBAction func getLocation(sender: AnyObject) {
         
-        currentLocation.setLat(lat)
-        currentLocation.setLong(long)
-        
-        cities = weather.getNearestCities(currentLocation)
-        
-        print("\(cities[0])")
-        print("\(cities[1])")
-        
+        if lat != nil && long != nil {
+            weather.setCurrentLat(lat)
+            weather.setCurrentLong(long)
+            
+            weather.getNearestCities() { () -> () in
+                for x in 0...(self.weather.cityList.count - 1) {
+                print("\(x) The id for \(self.weather.cityList[x].name) is \(self.weather.cityList[x].id)")
+                    print("Its latitude is \(self.weather.cityList[x].location.lat) and its longitude is \(self.weather.cityList[x].location.long)")
+                }
+            }
+        }
 
     }
 

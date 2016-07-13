@@ -41,6 +41,7 @@ class City {
     private var _name: String!
     private var _id: Int!
     private var _location = Location(latitude: 0.00, longitude: 0.00)
+    private var _distance: Double!
     
     var name: String {
         return _name
@@ -52,6 +53,10 @@ class City {
     
     var location: Location {
         return _location
+    }
+    
+    var distance: Double {
+        return _distance
     }
     
     init(name: String, id: Int, lat: Double, long: Double) {
@@ -72,5 +77,9 @@ class City {
     func setLoc(location: Location) {
         _location.setLat(location.lat)
         _location.setLong(location.long)
+    }
+    
+    func setDistance(distance: Double) {
+        _distance = distance
     }
 }

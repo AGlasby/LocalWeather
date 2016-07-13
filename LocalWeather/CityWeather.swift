@@ -1,3 +1,4 @@
+
 //
 //  CityWeather.swift
 //  LocalWeather
@@ -8,6 +9,7 @@
 
 import Foundation
 import Alamofire
+import CoreLocation
 
 class CityWeather {
     
@@ -24,6 +26,7 @@ class CityWeather {
     private var _currentLat: Double!
     private var _currentLong:Double!
     private var _cityList: [City] = []
+    private var _cityDistance: Double!
     
     
     var cityName: String {
@@ -45,6 +48,10 @@ class CityWeather {
     var cityList: [City] {
         return _cityList
     }
+    
+    var cityDistance: Double {
+        return _cityDistance
+    }
   
     
     init(name: String) {
@@ -54,6 +61,7 @@ class CityWeather {
         _cityId = 0
         _cityLat = 0.00
         _cityLong = 0.00
+        _cityDistance = 0.00
     }
     
     func setCurrentLat(latitude: Double) {
@@ -64,6 +72,10 @@ class CityWeather {
         _currentLong = longitude
     }
     
+    func setCityDistance(distance: Double) {
+        _cityDistance = distance
+    }
+    
     func addCity(city: City) {
         _cityList.append(city)
     }
@@ -72,14 +84,20 @@ class CityWeather {
     func downloadCityWeatherDetails () {
         
     }
+
+    
+    func distanceToCity(firstLoc: Location, secondLoc: Location) -> Double {
+        let userLocation:CLLocation = CLLocation(latitude: firstLoc.lat, longitude: firstLoc.long)
+        let cityLocation:CLLocation = CLLocation(latitude: secondLoc.lat, longitude: secondLoc.long)
+        let meters:CLLocationDistance = userLocation.distanceFromLocation(cityLocation)
+        return (meters / 1609.344)
+    }
     
     
-    func getNearestCities(completed: DownloadComplete) {
-
-
+    func getNearestCities(currentLocation: Location, completed: DownloadComplete) {
         
         let findCityUrl = "\(URL_BASE)\(API_VERSION)\(FIND_CITY)"
-        let loc = "lat=\(_currentLat)&lon=\(_currentLong)&cnt=\(CITY_COUNT)"
+        let loc = "lat=\(currentLocation.lat)&lon=\(currentLocation.long)&cnt=\(CITY_COUNT)"
         let apiCall = "\(findCityUrl)\(loc)\(API_KEY)"
         let url = NSURL(string: apiCall)!
         
@@ -90,7 +108,7 @@ class CityWeather {
             if let dict = result.value as? Dictionary<String, AnyObject> {
                 if let count = dict["count"] as? Int where count > 0 {
                     for x in 0...(count - 1) {
-                        let city = City(name: "", id: 0, lat: 0.00, long: 0.00)
+                        let city = City(name: "Bracknell", id: 0, lat: 0.00, long: 0.00)
                         let name = dict["list"]![x]["name"] as? String
                         city.setName(name!)
                         
@@ -101,13 +119,11 @@ class CityWeather {
                         let long = dict["list"]![x]["coord"]!!["lon"] as? Double
                         let coords = Location(latitude: lat!, longitude: long!)
                         city.setLoc(coords)
+                        
+                        let distance = self.distanceToCity(currentLocation, secondLoc: city.location)
+                        city.setDistance(distance)
 
                         self.addCity(city)
-//                        for y in 0...x {
-////                        print("\(y) \(self.cityList[y].name)")
-////                        print(self.cityList.count)
-////                        print(self.cityList[y].name)
-//                        }
                     }
                 } else {
                     print("No cities returned")

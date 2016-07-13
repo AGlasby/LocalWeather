@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:chuffCorner.gpx">
+   </FileRef>
+   <FileRef
       location = "group:LocalWeather.xcodeproj">
    </FileRef>
    <FileRef

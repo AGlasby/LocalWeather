@@ -103,18 +103,16 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDe
         }
     }
     
-    func roundToPlaces(value: Double, decimalPlaces: Int) -> Double {
-        let divisor = pow(10.0, Double(decimalPlaces))
-        return round(value * divisor) / divisor
-    }
-    
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+     
+        let city = listOfCities[indexPath.row]
+        print(city.name)
+        print(city.id)
+        performSegueWithIdentifier("GetCityWeather", sender: city)
         
     }
     
-    
-   
     
     @IBAction func getLocation(sender: AnyObject) {
         
@@ -145,14 +143,18 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDe
         var cities: [City] = self.weather.cityList
     
         cities.sortInPlace { $0.distance < ($1.distance) }
-        
-        for x in 0...(self.weather.cityList.count - 1) {
-            print(cities[x].distance)
-            print("The id for \(cities[x].name) is \(cities[x].id)")
-            print("It is \(cities[x].distance) miles away")
-        }
         return cities
     
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "GetCityWeather" {
+            if let weatherVC = segue.destinationViewController as? WeatherVC {
+                if let city = sender as? City {
+                    weatherVC.weatherCity = city
+                }
+            }
+        }
     }
 
 }

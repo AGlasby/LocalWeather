@@ -10,8 +10,9 @@ import Foundation
 
 let URL_BASE = "http://api.openweathermap.org/data"
 let API_VERSION = "/2.5/"
-let WEATHER = "weather?"
+let WEATHER_BY_ID = "weather?id="
 let FIND_CITY = "find?"
+let TEMP_UNITS = "&units=metric"
 let API_KEY = "&appid=8778450208a894cc4a57b5fb1858eff0"
 
 let BY_CITY = "q="

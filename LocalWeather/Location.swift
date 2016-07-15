@@ -9,32 +9,10 @@
 import Foundation
 
 
-class Location {
+struct Location {
     
-    private var _lat: Double!
-    private var _long: Double!
-    
-    var lat: Double {
-        return _lat
-    }
-    
-    var long: Double {
-        return _long
-    }
-    
-    
-    init(latitude: Double, longitude: Double) {
-        _lat = latitude
-        _long = longitude
-    }
-    
-    func setLat(lat: Double) {
-        _lat = lat
-    }
-    
-    func setLong(long: Double) {
-        _long = long
-    }
+    var latitude: Double
+    var longitude: Double!
 }
 
 class City {
@@ -62,8 +40,8 @@ class City {
     init(name: String, id: Int, lat: Double, long: Double) {
         _name = name
         _id = id
-        self._location.setLat(lat)
-        _location.setLong(long)        
+        _location.latitude = lat
+        _location.longitude = long
     }
     
     func setName(name: String) {
@@ -75,8 +53,8 @@ class City {
     }
     
     func setLoc(location: Location) {
-        _location.setLat(location.lat)
-        _location.setLong(location.long)
+        _location.latitude = location.latitude
+        _location.longitude = location.longitude
     }
     
     func setDistance(distance: Double) {

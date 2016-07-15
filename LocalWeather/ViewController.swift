@@ -117,10 +117,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, UITableViewDe
     @IBAction func getLocation(sender: AnyObject) {
         
         if lat != nil && long != nil {
-            weather.setCurrentLat(lat)
-            weather.setCurrentLong(long)
-            currentLocation.setLat(weather.currentLat)
-            currentLocation.setLong(weather.currentLong)
+            currentLocation.latitude = lat
+            currentLocation.longitude = long
             
             locateBtn.hidden = true
             nearestLbl.hidden = false

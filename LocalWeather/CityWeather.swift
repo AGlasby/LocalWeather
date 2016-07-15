@@ -16,18 +16,13 @@ class CityWeather {
     private var _cityName: String!
     private var _cityState: String!
     private var _cityCountry: String!
-    private var _cityId: Int
+    private var _cityId: Int!
+    private var _cityLocation = Location(latitude: 0.00, longitude: 0.00)
     
-    private var _cityLat: Double!
-    private var _cityLong: Double!
-    
-    private var _cityTemp: Double!
-    
-    private var _currentLat: Double!
-    private var _currentLong:Double!
     private var _cityList: [City] = []
     private var _cityDistance: Double!
     
+    private var _cityTemp: Double!
     
     var cityName: String {
         return _cityName
@@ -37,12 +32,8 @@ class CityWeather {
         return _cityTemp
     }
     
-    var currentLat: Double {
-        return _currentLat
-    }
-
-    var currentLong: Double {
-        return _currentLong
+    var cityLocation: Location {
+        return _cityLocation
     }
     
     var cityList: [City] {
@@ -59,18 +50,9 @@ class CityWeather {
         _cityState = ""
         _cityCountry = ""
         _cityId = 0
-        _cityLat = 0.00
-        _cityLong = 0.00
         _cityDistance = 0.00
     }
     
-    func setCurrentLat(latitude: Double) {
-        _currentLat = latitude
-    }
-    
-    func setCurrentLong(longitude: Double) {
-        _currentLong = longitude
-    }
     
     func setCityDistance(distance: Double) {
         _cityDistance = distance
@@ -81,23 +63,10 @@ class CityWeather {
     }
     
     
-    func downloadCityWeatherDetails () {
-        
-    }
-
-    
-    func distanceToCity(firstLoc: Location, secondLoc: Location) -> Double {
-        let userLocation:CLLocation = CLLocation(latitude: firstLoc.lat, longitude: firstLoc.long)
-        let cityLocation:CLLocation = CLLocation(latitude: secondLoc.lat, longitude: secondLoc.long)
-        let meters:CLLocationDistance = userLocation.distanceFromLocation(cityLocation)
-        return (meters / 1609.344)
-    }
-    
-    
     func getNearestCities(currentLocation: Location, completed: DownloadComplete) {
         
         let findCityUrl = "\(URL_BASE)\(API_VERSION)\(FIND_CITY)"
-        let loc = "lat=\(currentLocation.lat)&lon=\(currentLocation.long)&cnt=\(CITY_COUNT)"
+        let loc = "lat=\(currentLocation.latitude)&lon=\(currentLocation.longitude)&cnt=\(CITY_COUNT)"
         let apiCall = "\(findCityUrl)\(loc)\(API_KEY)"
         let url = NSURL(string: apiCall)!
         
@@ -133,6 +102,12 @@ class CityWeather {
         }
     }
     
-
+    
+    func distanceToCity(firstLoc: Location, secondLoc: Location) -> Double {
+        let userLocation:CLLocation = CLLocation(latitude: firstLoc.latitude, longitude: firstLoc.longitude)
+        let cityLocation:CLLocation = CLLocation(latitude: secondLoc.latitude, longitude: secondLoc.longitude)
+        let meters:CLLocationDistance = userLocation.distanceFromLocation(cityLocation)
+        return (meters / 1609.344)
+    }
     
 }

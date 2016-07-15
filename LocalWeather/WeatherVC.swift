@@ -67,32 +67,35 @@ class WeatherVC: UIViewController {
                     self.cityMinLbl.text = String(roundToPlaces(temp_min!, decimalPlaces: 2))
                     self.cityHumidityLbl.text = String(humidity!)
                     self.cityPressureLbl.text = String(pressure!)
-                    
-                    
                 } else {
                     print("Main not returned")
                 }
                 
                 if let daylight = dict["sys"] as? [String: AnyObject] {
-                    
+                    let sunriseDt = daylight["sunrise"] as? Int
+                    let sunrise = timeConverter(Double(sunriseDt!))
+                    let sunsetDt = daylight["sunset"] as? Int
+                    let sunset = timeConverter(Double(sunsetDt!))
                 } else {
                     print("Sys not returned")
                 }
                 
                 if let wind = dict["wind"] as? [String: AnyObject] {
-                    
+                    let direction = wind["deg"] as? Int
+                    let speed = wind["speed"] as? Double
+                    print(String(roundToPlaces(speed!, decimalPlaces: 2)))
                 } else {
                     print("Wind not returned")
                 }
                 
                 for x in 0...(dict["weather"]?.count)! - 1 {
-                if let weather = dict["weather"]![0] as? [String: AnyObject] {
-                    let description = weather["description"]
-                    let main = weather["main"]
-                    print("\(main!) \(description!) ")
-                } else {
-                    print("Weather not returned")
-                }
+                    if let weather = dict["weather"]![0] as? [String: AnyObject] {
+                        let description = weather["description"]
+                        let main = weather["main"]
+                        print("\(main!) \(description!) ")
+                    } else {
+                        print("Weather not returned")
+                    }
                 }
                 
                 if let dateTime = dict["dt"] as? Int {
